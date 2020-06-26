@@ -4,7 +4,7 @@ SRC = main.c h264enc.c ../common$(ION)/ve.c
 CFLAGS = -Wall -O3 -I../common$(ION)
 LDFLAGS = -lpthread
 LIBS =
-CC ?= gcc
+CC = gcc
 
 MAKEFLAGS += -rR --no-print-directory
 
@@ -17,7 +17,7 @@ DEP = $(addsuffix .d,$(basename $(SRC)))
 
 all: $(TARGET)
 $(TARGET): $(OBJ)
-	$(CC) $(LDFLAGS) $(OBJ) $(LIBS) -o $@
+	$(CC) $(LDFLAGS) $(OBJ) $(LIBS) -o $@ $(LDFLAGS)
 
 clean:
 	rm -f $(OBJ)
@@ -25,6 +25,6 @@ clean:
 	rm -f $(TARGET)
 
 %.o: %.c
-	$(CC) $(DEP_CFLAGS) $(CFLAGS) -c $< -o $@
+	$(CC) $(DEP_CFLAGS) $(CFLAGS) -c $< -o $@ $(LDFLAGS)
 
 include $(wildcard $(DEP))
